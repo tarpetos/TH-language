@@ -1,0 +1,17 @@
+def func:
+    x = true
+    input(y)
+
+    if y > 10 then goto
+        for (i = 0; i < 10; i = i + 1) {
+            y = y * 2
+        }
+
+    pow(y, E)
+
+    if  y >= 1000 then goto
+        x = false
+
+    print("y")
+end
+
