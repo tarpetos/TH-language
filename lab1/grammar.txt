@@ -1,0 +1,58 @@
+Program = def ProgName ':' DeclSection DoSection end.
+ProgName = Ident.
+Ident = Letter {Letter | Digit}.
+DeclSection = DeclarList.
+DeclarList = Declaration {Declaration}.
+Declaration = Type Ident.
+IdentList = Ident {',' Ident}.
+Type = integer | double | boolean.
+DoSection = StatementList.
+StatementList = Statement {Statement}.
+Statement = Assign | Inp | Out | ForStatement | IfStatement.
+Expression = ArithmExpression | BoolExpr.
+BoolExpr = ArithmExpression RelOp ArithmExpression.
+ArithmExpression = [Sign] Term | ArithmExpression '+' Term | ArithmExpression '-' Term.
+Term = Factor | Term '*' Factor | Term '/' Factor.
+Factor = Ident | Const | '(' ArithmExpression ')'.
+SpecSymbols = ArithOp | RelOp | BracketsOp | AssignOp | ExpOp | Punct.
+ArithOp = AddOp | MultOp.
+AddOp = '+' | '-'.
+MultOp = '*' | '/' | '^'.
+BracketsOp = '(' | ')'.
+AssignOp = '='.
+RelOp = '==' | '<= ' | '<' | '>' | '>=' | '!='.
+ExpOp = pow '(' ArithmExpression1 ',' ArithmExpression2 ')'.
+Punct = '.' | ',' | ':' | ';'.
+Assign = Ident '=' Expression.
+Inp = input '(' IdentList ')'.
+Out = print '(' (IdentList | SymbolPrintList) {' '}')'.
+SymbolPrintList = '"' (Letter | Digit | SpecSigns) '"' {',' '"' (Letter | Digit | SpecSigns) '"'}.
+ForStatement = for '(' IndExpr ')' '{' ListOp '}'.
+IndExpr = Ident '=' ArithmExpression1 ';' ArithmExpression1 RelOp ArithmExpression2 ';' Ident '=' ArithmExpression3.
+ArithmExpression1 = ArithmExpression.
+ArithmExpression2 = ArithmExpression.
+ArithmExpression3 = ArithmExpression.
+ListOp = Statement | StatementList.
+IfStatement = if ArithmExpression1 RelOp ArithmExpression2 then goto Label.
+Label = Statement.
+Const = IntNumb | RealNumb | BoolConst.
+IntNumb = [Sign] UnsignedInt.
+RealNumb = [Sign] (UnsignedReal | UnsignedExpReal).
+Sign = '+' | '-'.
+UnsignedInt = Digit {Digit}.
+UnsignedReal =  '.' UnsignedInt | UnsignedInt '.' | UnsignedInt '.' UnsignedInt.
+UnsignedExpReal = '.' UnsignedInt 'e' '+' UnsignedInt | Digit '.'
+		UnsignedInt 'e' '+' UnsignedInt | Digit 'e' '+' UnsignedInt |
+		'.' UnsignedInt 'e' '-' UnsignedInt | Digit '.'
+		UnsignedInt 'e' '-' UnsignedInt | Digit 'e' '-' UnsignedInt.
+BoolConst = true | false.
+Letter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's'
+			 | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
+			 | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'.
+Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'.
+SpecSigns = '.' | ',' | ':' | ';' | '(' | ')' | '=' | '+' | '-' | '*' | '/' | '<' | '>' | '{' | '}' | WhiteSpace | EndOfLine.
+WhiteSpace = ' ' | '\t'.
+EndOfLine = '\n' | '\r'.
+
+KeyWords = def | pow | input | print | for | if | then | goto.
+BoolStates = true | false.
